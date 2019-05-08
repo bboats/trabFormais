@@ -1,1 +1,2 @@
-print ("Hello lucio!")
+print ("Hello lucio")
+x = 1+1
