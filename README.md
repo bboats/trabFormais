@@ -16,7 +16,7 @@
 
 
 ## Instruções
-O formato do arquivo de entrada contendo a definição do AFN deve seguir o padrão de "exemploEntrada.txt".
+O formato do arquivo de entrada contendo a definição do AFN deve seguir o padrão de "exemploEntrada.txt" contido em $/bin/txtfiles.
 
 As conversões de AFN para AFD devem seguir o algoritmo apresentado na prova do teorema correspondente, de forma a garantir a sua equivalência. Qualquer otimização ou alteração deve ser devidamente provada como meio de se obter um AFD equivalente.
 
