@@ -25,7 +25,7 @@ AFNoperations = lines[2:]
 AFNoperations = formatOperations(AFNoperations)
 
 #Determinization of the given automata
-#AFDoperations = determinizeOperations()
+AFDoperations = determinizeOperations(AFNoperations,states,transitions)
 
 ##/\continue from here, determinizeOperations() needs to be made
 
