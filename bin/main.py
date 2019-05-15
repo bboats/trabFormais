@@ -12,6 +12,6 @@ automataName,language = lines[0].split('=')  ### original format is "automataNam
 #lines[1] has no purpose other than formatting so it is useless to this program
 AFNoperations = lines[2:]
 afn = Afn(automataName,language,AFNoperations)
+print(afn.determinizeOperations())
 
-
-##/\continue from here, determinizeOperations() needs to be made
+##/\determinizeOperations returns an complete AFD, need to go from here and make the AFD class and its methods
