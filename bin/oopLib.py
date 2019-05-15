@@ -1,5 +1,5 @@
 class Afn:
-	"""docstring for Afn"""
+	"""Non Deterministic Finite Automata class, contains method for determinization"""
 	def __init__(self, automataName, language, operations):
 		self.automataName = automataName
 		self.language = self.formatLanguage(language)
@@ -77,9 +77,6 @@ class Afn:
 		doneStates=[]
 		newStates=[]
 		AFDop = {}
-		AFDfinalStates = []
-		AFDinitialState = self.initialState
-		AFDtransitions = self.transitions
 		###############################################################################
 		#At this point, singleStates contains all the single states with their correct results
 		#All that is left to do is find the results for the new states that got
@@ -92,21 +89,25 @@ class Afn:
 			try:
 				for transition in self.transitions: #test for every transition possible
 					resultState = [] #clear the resulting state for current transition
-
 					for state in currentStateList: #tests for every state that composes the current state
 						if transition in singleStates[state]:
 							resultState += singleStates[state][transition] #add the results to a single list
 					if resultState:
 						resultState = sorted(list(set(resultState))) #remove duplicates
-						AFDop['+'.join(sorted(currentStateList))] = {transition : resultState} #the sum of the results is the resulting state
+						if '+'.join(currentStateList) not in AFDop:
+							AFDop['+'.join(sorted(currentStateList))] = {transition : resultState} #the sum of the results is the resulting state
+						else:
+							AFDop['+'.join(sorted(currentStateList))][transition] = resultState
 						if resultState not in doneStates:
 							toDoStates.append(resultState)
-							#print(toDoStates)
 				
 			except:
 				print ("ERROR 1")
 				return 0
 			
+		AFDfinalStates = []
+		AFDinitialState = self.initialState
+		AFDtransitions = self.transitions
 
 	
 
@@ -124,17 +125,34 @@ class Afn:
 		
 
 
-		AFDlanguage = [self.automataName,AFDstates,AFDtransitions,AFDinitialState,AFDfinalStates]
+		AFDlanguage = [AFDstates,AFDtransitions,AFDinitialState,AFDfinalStates]
 
-		return AFDlanguage,AFDop
+		return self.automataName,AFDlanguage,AFDop
 
 
-AFNFile = open("txtfiles/"+"input.txt","r")
-lines = (AFNFile.read()).split('\n')
+class Afd:
+	"""
+	-Deterministic finite automata's class-
+	Contais methods for processing words and checking if they belong to the language that the automata represents"""
+	def __init__(self,automataName,language,operations):
+		self.automataName = automataName
+		self.states,self.transitions,self.initialState,self.finalStates = language
+		self.operations = operations
 
-automataName,language = lines[0].split('=')  ### original format is "automataName = {language}"
-#lines[1] has no purpose other than formatting so it is useless to this program
-AFNoperations = lines[2:]
-afn = Afn(automataName,language,AFNoperations)
+	def processWord(self,word):
+		currentState = self.initialState
+		for index,character in enumerate(word):
+			try:
+				currentState = self.operations['+'.join(currentState)][character]
 
-afn.determinizeOperations()
+			except:
+				print('*************************************************')
+				print('|\tThe following transition caused an error\t\t|')
+				print('|\tcurrentState:',currentState,'transition:',word[index])
+				print('|\t',word,' -> REJEITA\t\t\t\t\t\t|')
+				print('*************************************************')
+				return
+		if '+'.join(currentState) in self.finalStates:
+			print(word,' -> ACEITA')
+		else:
+			print(word,' -> REJEITA')
