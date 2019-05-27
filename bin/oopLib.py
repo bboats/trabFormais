@@ -102,6 +102,7 @@ class Afn:
 							toDoStates.append(resultState)
 				
 			except:
+				print (currentStateList)
 				print ("ERROR 1")
 				return 0
 			

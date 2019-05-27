@@ -13,7 +13,7 @@ from oopLib import *
 ##!!!change this so "input.txt" is obtained through input/terminal args!!!!###
 
 ###FILE MANIPULATION -- (reading and splitting the file into easily acessible variables)
-AFNFile = open("txtfiles/"+"input.txt","r")
+AFNFile = open("txtfiles/"+"inputBig.txt","r")
 lines = (AFNFile.read()).split('\n')
 
 automataName,language = lines[0].split('=')  ### original format is "automataName = {language}"
