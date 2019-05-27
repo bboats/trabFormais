@@ -90,17 +90,17 @@ class Afn:
 				for transition in self.transitions: #test for every transition possible
 					resultState = [] #clear the resulting state for current transition
 					for state in currentStateList: #tests for every state that composes the current state
-						if transition in singleStates[state]:
-							resultState += singleStates[state][transition] #add the results to a single list
-					if resultState:
-						resultState = sorted(list(set(resultState))) #remove duplicates
-						if '+'.join(currentStateList) not in AFDop:
-							AFDop['+'.join(sorted(currentStateList))] = {transition : resultState} #the sum of the results is the resulting state
-						else:
-							AFDop['+'.join(sorted(currentStateList))][transition] = resultState
-						if resultState not in doneStates:
-							toDoStates.append(resultState)
-				
+						if state in singleStates:
+							if transition in singleStates[state]:
+								resultState += singleStates[state][transition] #add the results to a single list
+					resultState = sorted(list(set(resultState))) #remove duplicates
+					if '+'.join(currentStateList) not in AFDop:
+						AFDop['+'.join(sorted(currentStateList))] = {transition : resultState} #the sum of the results is the resulting state
+					else:
+						AFDop['+'.join(sorted(currentStateList))][transition] = resultState
+					if resultState not in doneStates:
+						toDoStates.append(resultState)
+			
 			except:
 				print (currentStateList)
 				print ("ERROR 1")
@@ -127,7 +127,6 @@ class Afn:
 
 
 		AFDlanguage = [AFDstates,AFDtransitions,AFDinitialState,AFDfinalStates]
-
 		return self.automataName,AFDlanguage,AFDop
 
 
@@ -148,9 +147,9 @@ class Afd:
 
 			except:
 				print('*************************************************')
-				print('|\tThe following transition caused an error\t\t|')
-				print('|\tcurrentState:',currentState,'transition:',word[index])
-				print('|\t',word,' -> REJEITA\t\t\t\t\t\t|')
+				print('|    The following transition caused an error')
+				print('|    currentState:',currentState,'transition:',word[index])
+				print('|    ',word,' -> REJEITA')
 				print('*************************************************')
 				return
 		if '+'.join(currentState) in self.finalStates:

@@ -1,3 +1,4 @@
+#!/usr/bin/python3
 #Marcos Vinicius de Oliveira Pinto - 288560
 #################################MAIN##########################################
 ###TO-DO###
@@ -9,9 +10,10 @@
 ############
 
 #from mainLib import *	#all aux functions
-from oopLib import *
+from AutomataClasses import *
+import sys
 ##!!!change this so "input.txt" is obtained through input/terminal args!!!!###
-
+print(sys.argv[0])
 ###FILE MANIPULATION -- (reading and splitting the file into easily acessible variables)
 AFNFile = open("txtfiles/"+"inputBig.txt","r")
 lines = (AFNFile.read()).split('\n')
@@ -30,6 +32,5 @@ words = (wordsFile.read()).split('\n')
 
 ###The program needs to 
 print('\tTesting all words from words.txt:',)
-
 for word in words:
 	afd.processWord(word)

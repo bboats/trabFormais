@@ -9,7 +9,6 @@ Prog
 (qI,L)=qIL
 (qIL,T)=qILT
 (qIL,Z)=qILZ
-(qIL,O)=qILO
 (qI,J)=qIJ
 (qIJ,T)=qIJT
 (qIJ,S)=qIJS
