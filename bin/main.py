@@ -10,37 +10,14 @@
 ############
 
 #from mainLib import *	#all aux functions
-from AutomataClasses import *
-import sys
-flag = 'kb'
-##!!!change this so "input.txt" is obtained through input/terminal args!!!!###
-for arg in sys.argv[1:]:
-	if arg == '-file':
-		flag = 'file'
-	if arg == '-keyboard':
-		flag = 'kb'
-	if arg == '-v' or arg == '-help':
-		print('\n>>Trabalho Final de Linguagens Formais e Automatos<<')
-		print('\ndefinition of script pipiippopopo...')
-		print('\n------------|Avaiable arguments|------------')
-		print('   -file: give the list of words to be recognized through a .txt file.')
-		print('   -keyboard: give the list of words to be recognized through user input.')
-		print('   -v: show this help screen\n')
-		sys.exit()
-###FILE MANIPULATION -- (reading and splitting the file into easily acessible variables)
-automataFileName = input('Name or PATH to the language file?:\n')
-if automataFileName[-4:]  != '.txt':
-	automataFileName+= '.txt'
+import AutomataClasses
+import menu
 
-print(automataFileName)
-AFNFile = open(automataFileName,"r")
-lines = (AFNFile.read()).split('\n')
 
-automataName,language = lines[0].split('=')  ### original format is "automataName = {language}"
-#lines[1] has no purpose other than formatting so it is useless to this program
-AFNoperations = lines[2:]
-afn = Afn(automataName,language,AFNoperations)
-afd = Afd(*afn.determinizeOperations())
+userChoice = ''
+
+
+
 
 wordsFile = open("txtfiles/"+"words.txt","r")
 words = (wordsFile.read()).split('\n')
