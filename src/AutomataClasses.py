@@ -146,11 +146,8 @@ class Afd:
 				currentState = self.operations['+'.join(currentState)][character]
 
 			except:
-				print('*************************************************')
-				print('|    The following transition caused an error')
-				print('|    currentState:',currentState,'transition:',word[index])
-				print('|    ',word,' -> REJEITA')
-				print('*************************************************')
+				print(word,' -> REJEITA (transicao nao existente)')
+				print('currentState:',currentState,'transition:',word[index])
 				return
 		if '+'.join(currentState) in self.finalStates:
 			print(word,' -> ACEITA')

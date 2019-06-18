@@ -2,30 +2,35 @@
 #Marcos Vinicius de Oliveira Pinto - 288560
 #################################MAIN##########################################
 ###TO-DO###
-#Execution interface
-#	Ask if user inputs the word or gives textfile
-#	Ask if user wants to exit
+#GUI with tkinter
 #Comment the code better
 #Clean any unused libraries and temporary test files
 ############
 
-#from mainLib import *	#all aux functions
-import AutomataClasses
-import menu
+import AutomataClasses #AFD and AFN classes
+import menu #text-based user interface (for use without tkinter) 
+from sys import exit #sys.exit 
+
+options = ['Carregar um automato a partir de um .txt','Testar palavras a partir de um .txt','Testar uma palavra a partir do teclado']
 
 
-userChoice = ''
+mainMenu = menu.Menu(options,'- no language -')
+while 1:
+	userChoice = mainMenu.showMenu()
 
+	if userChoice == 1:
+		afd = menu.openLanguage()
+		mainMenu = menu.Menu(options,afd.automataName)
 
+	elif userChoice == 2:
+		for word in menu.testWordsTxt(): #textWordsTxt returns a list of words from a given file
+			afd.processWord(word)
+		input('(press enter to go back to the menu)')
 
+	elif userChoice == 3:
+		afd.processWord(menu.testWordsKb())
+		input('(press enter to go back to the menu)')
 
-wordsFile = open("txtfiles/"+"words.txt","r")
-words = (wordsFile.read()).split('\n')
-#print(afd.operations)
-#print(afd.finalStates)
-#print(afd.initialState)
+	elif userChoice == 0:
+		exit('Fim do script por decisao do usuario')
 
-###The program needs to 
-print('\tTesting all words from words.txt:',)
-for word in words:
-	afd.processWord(word)
