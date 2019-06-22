@@ -6,9 +6,19 @@ import AutomataClasses #AFD and AFN classes
 from tkinter import *
 from tkinter import filedialog
 
+import sys
+import os
+if getattr(sys, 'frozen', False):
+	wd = sys._MEIPASS
+	images_path = os.path.join(wd,'images/')
+else:
+	images_path = 'images/'
+
 
 ### Global variables for window colors ###
 bg1 = "gray12"
+
+
 
 #############################################
 
@@ -17,7 +27,7 @@ class MenuClass():
 	def __init__(self):
 		#inicializa a janela Tk
 		self.root = Tk()
-		self.root.iconbitmap(r'images\faustao.ico')
+		self.root.iconbitmap(images_path + r"\faustao.ico")
 		self.root.title('Trabson de Formais - Marcos Vinicius de Oliveira Pinto')
 		self.root.geometry("500x410")
 		self.root.resizable(0,0)
@@ -36,12 +46,19 @@ class MenuClass():
 		#automato default (não carregado)
 		self.afd = False
 
+		#imagens dos botoes
+		self.buttonImage1 = PhotoImage(file=images_path + r"/button1.png")
+		self.buttonImage2 = PhotoImage(file=images_path + r"/button2.png")
+		self.buttonImage3 = PhotoImage(file=images_path + r"/button3.png")
+		self.buttonImage4 = PhotoImage(file=images_path + r"/button4.png")
+		self.buttonImage5 = PhotoImage(file=images_path + r"/button5.png")
+
 
 		######################
 		##########CABECALHO##########
 		######################
 		#texto do titulo (nome da linguagem/automato)
-		self.titleImg = PhotoImage(file="images/title.png")
+		self.titleImg = PhotoImage(file=images_path + r"/title.png")
 		self.title = Label(self.titleFrame,image=self.titleImg)
 		self.title.titleImg = self.titleImg
 		self.title['bg'] = self.title.master['bg']
@@ -57,25 +74,25 @@ class MenuClass():
 		######################
 
 		###Botão para abrir txt da linguagem###
-		self.abrirLinguagem = Button(self.leftFrame,text="Abrir Linguagem",command=self.abreLinguagem,font=("Sans Serif",16))
-		self.abrirLinguagem.pack(pady=(20,30),ipadx=50)
+		self.abrirLinguagem = Button(self.leftFrame,borderwidth=5,command=self.abreLinguagem,font=("Sans Serif",16),image = self.buttonImage1)
+		self.abrirLinguagem.pack(pady=(20,30))
 
 
 		###Botão para abrir txt das palavras###
-		self.abrirPalavras = Button(self.leftFrame,text="Testar Palavras de um .Txt",command=self.palavrasTxt,font=("Sans Serif",16))
+		self.abrirPalavras = Button(self.leftFrame,borderwidth=5,command=self.palavrasTxt,font=("Sans Serif",16), image = self.buttonImage2)
 		self.abrirPalavras.pack(padx=(3,3),pady=(3,3))
 
 		####Caixa de input manual e seus botões####
 		self.caixaPalavras = Text(self.leftFrame,height=9,width=33,borderwidth=6,relief=RIDGE)
-		self.caixaPalavras.insert(END, ' Insira palavras separadas aqui!\n    (Separadas por virgula)')
-		self.caixaPalavras.pack(pady=(20,14))
+		self.caixaPalavras.insert(END, '     Insira palavras aqui!\n    (Separadas por virgula)')
+		self.caixaPalavras.pack(pady=(20,5))
 
 		###Botão submit p/ caixa de input
-		self.enviaPalavras = Button(self.leftFrame,text="Testar as palavras!",command=self.palavrasKB)
-		self.enviaPalavras.pack(side="left",anchor="n",padx=(35,80),pady=(2,2))
+		self.enviaPalavras = Button(self.leftFrame,text="Testar as palavras!",command=self.palavrasKB,image = self.buttonImage3)
+		self.enviaPalavras.pack(side="left",anchor="n",padx=(35,40))
 
 		###Botão clear p/ caixa de input
-		self.limpaPalavras = Button(self.leftFrame,text="Clear",command=self.limpaCaixa)
+		self.limpaPalavras = Button(self.leftFrame,text="Clear",command=self.limpaCaixa,image = self.buttonImage4)
 		self.limpaPalavras.pack(side="left",anchor="n")
 
 
@@ -91,7 +108,7 @@ class MenuClass():
 
 
 		#imagem de enfeite
-		self.img = PhotoImage(file="images/tetris.png")
+		self.img = PhotoImage(file=images_path + r"/tetris.png")
 		self.displayImg = Label(self.rightFrame, image=self.img)
 		self.displayImg.img = self.img
 		self.displayImg['bg'] = self.displayImg.master['bg']
@@ -100,8 +117,8 @@ class MenuClass():
 
 
 		#botao para fechar o programa
-		self.exitButton = Button(self.rightFrame,text="Sair",command=self.root.quit)
-		self.exitButton.pack(ipadx=50,pady=(0,20),side="bottom")
+		self.exitButton = Button(self.rightFrame,text="Sair",command=self.root.quit,image = self.buttonImage5)
+		self.exitButton.pack(pady=(0,20),side="bottom")
 
 
 
