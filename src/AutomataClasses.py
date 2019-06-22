@@ -1,3 +1,8 @@
+#Marcos Vinicius de Oliveira Pinto - 288560
+#Arquivo contendo as classes AFN e AFD, estas sao utilizadas para manipular e utilizar os dados
+#obtidos a partir de arquivos .txt devidamente formatados
+#esse documento ta comentado em modo bilingue dsclp professor eu sou mt inconsistente
+
 class Afn:
 	"""Non Deterministic Finite Automata class, contains method for determinization"""
 	def __init__(self, automataName, language, operations):
@@ -139,17 +144,20 @@ class Afd:
 		self.states,self.transitions,self.initialState,self.finalStates = language
 		self.operations = operations
 
+	#metodo que recebe uma palavra e retorna se ela eh aceitada ou rejeitada de acordo com o automato
 	def processWord(self,word):
 		currentState = self.initialState
 		for index,character in enumerate(word):
 			try:
-				currentState = self.operations['+'.join(currentState)][character]
-
+				#se existir um estado resultante no dict[estadoAtual][transicao] então o estado atual se torna este
+				currentState = self.operations['+'.join(currentState)][character] 
 			except:
-				print(word,' -> REJEITA (transicao nao existente)')
-				print('currentState:',currentState,'transition:',word[index])
-				return
+				#senao significa que a palavra eh recusada por transicao inexistente
+				return (word + ' -> REJEITA')
+
+		#ao terminar a palavra, se o estado atual se encontra na lista de estados finais a palavra eh aceita
 		if '+'.join(currentState) in self.finalStates:
-			print(word,' -> ACEITA')
+			return (word + ' -> ACEITA')
+		#senao a palavra eh rejeitada
 		else:
-			print(word,' -> REJEITA')
+			return (word +' -> REJEITA')
